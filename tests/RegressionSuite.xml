@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regression_suite>
+    <metadata>
+        <name>Suite de Régression - Passerelle de Sécurité (SGW)</name>
+        <description>Tests de régression automatisés pour le système de passerelle de sécurité</description>
+        <version>1.0</version>
+        <date>2026-02-16</date>
+    </metadata>
+    
+    <!-- PHASE 1: Tests Critiques de Sécurité -->
+    <category name="Security">
+        <test id="TST_SEC_001" priority="CRITICAL">
+            <name>Gateway Filtering - Valid Packets</name>
+            <description>Vérifie que la passerelle accepte les paquets valides</description>
+            <category>Security</category>
+            <expected_result>OK</expected_result>
+            <timeout>30</timeout>
+            <retry_count>2</retry_count>
+            <precondition>SGW Active</precondition>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_SEC_002" priority="CRITICAL">
+            <name>Gateway Filtering - Invalid Packets</name>
+            <description>Vérifie que la passerelle rejette les paquets invalides</description>
+            <category>Security</category>
+            <expected_result>REJECTED</expected_result>
+            <timeout>30</timeout>
+            <retry_count>2</retry_count>
+            <precondition>SGW Active</precondition>
+        </test>
+        
+        <test id="TST_SEC_003" priority="CRITICAL">
+            <name>Access Authentication</name>
+            <description>Vérification du mécanisme d'authentification d'accès</description>
+            <category>Security</category>
+            <expected_result>AUTHENTICATED</expected_result>
+            <timeout>60</timeout>
+            <retry_count>1</retry_count>
+            <precondition>Authentication Protocol Active</precondition>
+        </test>
+    </category>
+    
+    <!-- PHASE 2: Tests de Diagnostic (UDS) -->
+    <category name="Diagnostics">
+        <test id="TST_DIAG_001" priority="HIGH">
+            <name>UDS ECU Reset</name>
+            <description>Service de réinitialisation ECU via UDS</description>
+            <category>Diagnostics</category>
+            <expected_result>RESET_COMPLETE</expected_result>
+            <timeout>15</timeout>
+            <retry_count>1</retry_count>
+            <precondition>UDS Session Active</precondition>
+        </test>
+        
+        <test id="TST_DIAG_002" priority="HIGH">
+            <name>UDS ReadDataByIdentifier</name>
+            <description>Lecture des données DID</description>
+            <category>Diagnostics</category>
+            <expected_result>DATA_READ_OK</expected_result>
+            <timeout>10</timeout>
+            <retry_count>1</retry_count>
+            <precondition>UDS Session Active</precondition>
+        </test>
+        
+        <test id="TST_DIAG_003" priority="MEDIUM">
+            <name>UDS WriteDataByIdentifier</name>
+            <description>Écriture des données DID</description>
+            <category>Diagnostics</category>
+            <expected_result>DATA_WRITE_OK</expected_result>
+            <timeout>10</timeout>
+            <retry_count>1</retry_count>
+            <precondition>UDS Session Active</precondition>
+        </test>
+    </category>
+    
+    <!-- PHASE 3: Tests de Communication CAN -->
+    <category name="CAN Communication">
+        <test id="TST_CAN_001" priority="HIGH">
+            <name>CAN Bus Health Check</name>
+            <description>Vérification de la santé du bus CAN</description>
+            <category>CAN Communication</category>
+            <expected_result>HEALTHY</expected_result>
+            <timeout>5</timeout>
+            <retry_count>0</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_CAN_002" priority="HIGH">
+            <name>CAN Message Transmission</name>
+            <description>Test de transmission de messages CAN</description>
+            <category>CAN Communication</category>
+            <expected_result>TX_OK</expected_result>
+            <timeout>10</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_CAN_003" priority="HIGH">
+            <name>CAN Message Reception</name>
+            <description>Test de réception de messages CAN</description>
+            <category>CAN Communication</category>
+            <expected_result>RX_OK</expected_result>
+            <timeout>10</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_CAN_004" priority="HIGH">
+            <name>CAN Error Handling</name>
+            <description>Test de gestion des erreurs CAN</description>
+            <category>CAN Communication</category>
+            <expected_result>ERROR_HANDLED</expected_result>
+            <timeout>15</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+    </category>
+    
+    <!-- PHASE 4: Tests de Performance -->
+    <category name="Performance">
+        <test id="TST_PERF_001" priority="MEDIUM">
+            <name>Message Response Time</name>
+            <description>Vérification du temps de réponse des messages</description>
+            <category>Performance</category>
+            <expected_result>RESPONSE_TIME_OK</expected_result>
+            <timeout>30</timeout>
+            <retry_count>2</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_PERF_002" priority="MEDIUM">
+            <name>Throughput Test</name>
+            <description>Test de débit du système</description>
+            <category>Performance</category>
+            <expected_result>THROUGHPUT_OK</expected_result>
+            <timeout>60</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+    </category>
+    
+    <!-- PHASE 5: Tests de Robustesse -->
+    <category name="Robustness">
+        <test id="TST_ROB_001" priority="MEDIUM">
+            <name>Stress Test - High Message Rate</name>
+            <description>Test de charge avec haut taux de messages</description>
+            <category>Robustness</category>
+            <expected_result>STRESS_OK</expected_result>
+            <timeout>120</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_ROB_002" priority="LOW">
+            <name>Long Duration Stability</name>
+            <description>Test de stabilité sur longue durée</description>
+            <category>Robustness</category>
+            <expected_result>STABLE</expected_result>
+            <timeout>300</timeout>
+            <retry_count>1</retry_count>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+    </category>
+    
+    <!-- PHASE 6: Tests Fonctionnels -->
+    <category name="Functional">
+        <test id="TST_FUNC_001" priority="HIGH">
+            <name>Gateway Signal Routing</name>
+            <description>Vérification du routage des signaux à travers la passerelle</description>
+            <category>Functional</category>
+            <expected_result>ROUTING_OK</expected_result>
+            <timeout>20</timeout>
+            <retry_count>1</retry_count>
+            <precondition>SGW Active</precondition>
+            <precondition>CAN Bus Ready</precondition>
+        </test>
+        
+        <test id="TST_FUNC_002" priority="MEDIUM">
+            <name>Protocol Conversion</name>
+            <description>Test de conversion de protocole</description>
+            <category>Functional</category>
+            <expected_result>CONVERSION_OK</expected_result>
+            <timeout>25</timeout>
+            <retry_count>2</retry_count>
+            <precondition>SGW Active</precondition>
+        </test>
+    </category>
+    
+</regression_suite>

@@ -1,0 +1,37 @@
+# LEAR Corporation - Regression Framework
+# Requirements for Professional Interface
+# Python 3.10+ / 3.13+
+
+# Core UI Framework
+Kivy==2.3.1
+Kivy-Garden>=0.1.4
+
+# CANoe Integration (Optional)
+py-canoe>=0.1.0
+pywin32>=306
+
+# Data Processing
+openpyxl>=3.0.0
+
+# Testing & Validation
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Code Quality
+pylint>=2.16.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Logging & Documentation
+docutils>=0.19
+
+# Utilities
+requests>=2.28.0
+python-dotenv>=0.21.0
+
+# Optional: Data Visualization
+matplotlib>=3.7.0
+numpy>=1.24.0
+
+# Development
+ipython>=8.10.0
