@@ -72,7 +72,7 @@ class StatusCard(BoxLayout):
         self.bind(size=self.update_graphics, pos=self.update_graphics)
         
     def update_graphics(self, *args):
-        self.canvas.before.clear()
+        self.canvas.before.clear()   
         with self.canvas.before:
             # Card background
             Color(*self.bg_color)
